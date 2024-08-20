@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: apache-httpd
+  labels:
+    name: apache-httpd
+    app-type: web
+spec:
+  containers:
+  - name: apache-httpd
+    image: httpd
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"

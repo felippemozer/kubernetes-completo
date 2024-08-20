@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-pod
+  labels:
+    apps: backend
+  namespace: backend-ns
+spec:
+  containers:
+  - name: redis-container
+    image: redis
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"

@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: lottery-cronjob
+spec:
+  failedJobsHistoryLimit: 5
+  successfulJobsHistoryLimit: 3
+  schedule: "* * * * *"
+  suspend: true
+  jobTemplate:
+    spec:
+      completions: 10
+      completionMode: "Indexed"
+      parallelism: 5
+      template:
+        metadata:
+          name: lottery-pod
+        spec:
+          containers:
+          - name: lottery-container
+            image: busybox
+            command:
+              - "bin/sh"
+              - "-c"
+              - "echo $(shuf -i 1-60 -n 6 | sort -n)"
+          restartPolicy: Never

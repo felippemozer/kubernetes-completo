@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: lottery-job
+spec:
+  completions: 10
+  completionMode: "Indexed"
+  parallelism: 5
+  activeDeadlineSeconds: 15
+  template:
+    metadata:
+      name: lottery-pod
+    spec:
+      containers:
+      - name: lottery-container
+        image: busybox
+        command:
+          - "bin/sh"
+          - "-c"
+          - "echo $(shuf -i 1-60 -n 6 | sort -n)"
+      restartPolicy: Never

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: frontend
+spec:
+  template:
+    metadata:
+      name: my-pod-nginx
+      labels:
+        env: production
+    spec:
+      containers:
+      - name: nginx-container
+        image: nginx:1.21.4
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+  selector:
+    matchLabels:
+      env: production
+  replicas: 1
+  strategy:
+    type: Recreate

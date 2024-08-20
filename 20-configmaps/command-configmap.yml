@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-cm
+data:
+  # Database connection config
+  database: mysql
+  database_uri: mysql://localhost:3306
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cm-pod
+  labels:
+    name: cm-pod
+spec:
+  containers:
+  - name: cm-pod
+    image: nginx
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    envFrom:
+      - configMapRef:
+          name: volume-cm
+    command:
+      - "bin/sh"
+      - "-c"
+      - "echo My Database = $database - $database_uri"
+  restartPolicy: Never
