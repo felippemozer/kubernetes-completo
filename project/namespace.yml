@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jupyter
+  annotations:
+    descr: "Namespace fo Jupyter Notebook Application"
+    project: "Final project K8s course"
+    owner: "John Doe"
+    phone: 555-123-456
